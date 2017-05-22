@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="TP05-Formulaire-2:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/TP05_Formulaire_2_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="TP05-Formulaire-2/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>
