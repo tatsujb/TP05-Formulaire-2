@@ -16,7 +16,7 @@ public class InscriptionForm {
     private static final String CHAMP_EMAIL = "email";
     private static final String CHAMP_PASS = "password";
     private static final String CHAMP_CONF = "confirmation";
-    private static final String CHAMP_NOM = "nom";
+    private static final String CHAMP_NOM = "name";
 
     private String resultat;
     private Map<String, String> erreurs = new HashMap<>();
@@ -50,16 +50,16 @@ public class InscriptionForm {
         }
         utilisateur.setPassword(password);
         try {
-            validationNom(nom);
+            validationName(name);
         } catch (Exception e) {
             setErreur(CHAMP_NOM, e.getMessage());
         }
-        utilisateur.setName(nom);
+        utilisateur.setName(name);
 
         if (erreurs.isEmpty()) {
             resultat = "Succès de l'inscription.";
             UtilisateurDAO methode = new UtilisateurDAO();
-            methode.create(new Utilisateur(0, email, password, nom));
+            methode.create(new Utilisateur(0, email, password, name));
 
         } else {
             resultat = "Échec de l'inscription.";
@@ -96,8 +96,8 @@ public class InscriptionForm {
     }
 
     //Test Nom
-    private void validationNom(String nom) throws Exception {
-        if (nom != null && nom.length() < 2) {
+    private void validationName(String name) throws Exception {
+        if (name != null && name.length() < 2) {
             throw new Exception("Le nom d'utilisateur doit contenir au moins 2 caractères.");
         }
     }
