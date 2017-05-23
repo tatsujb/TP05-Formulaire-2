@@ -34,7 +34,7 @@ public class InscriptionForm {
         String email = getValeurChamp(request, CHAMP_EMAIL);
         String password = getValeurChamp(request, CHAMP_PASS);
         String confirmation = getValeurChamp(request, CHAMP_CONF);
-        String nom = getValeurChamp(request, CHAMP_NOM);
+        String name = getValeurChamp(request, CHAMP_NOM);
         Utilisateur utilisateur = new Utilisateur();
         try {
             validationEmail(email);
