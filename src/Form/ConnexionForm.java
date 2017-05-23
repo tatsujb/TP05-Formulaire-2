@@ -2,6 +2,7 @@ package Form;
 
 import Bean.Utilisateur;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
