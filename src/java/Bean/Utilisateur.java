@@ -18,7 +18,7 @@ public class Utilisateur {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.name = nom;
+        this.name = name;
     }
 
     //Getters & Setters

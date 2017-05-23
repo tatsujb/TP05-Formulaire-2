@@ -26,10 +26,12 @@ public class SingletonConnection {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                if (connection.equals(true)) {
+
+                if (connection != null) {
                     System.out.println("connection etablie");
                 }
             } catch (Exception e) {
+                System.out.println("connection ECHOUE");
                 e.printStackTrace();
             }
         }

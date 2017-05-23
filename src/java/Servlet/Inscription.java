@@ -2,6 +2,7 @@ package Servlet;
 
 import java.io.IOException;
 import Bean.Utilisateur;
+import DAO.UtilisateurDAO;
 import Form.InscriptionForm;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -6,6 +6,7 @@ import DAO.UtilisateurDAO;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Valodia Tsacanias <https://github.com/valoTs> on 22/05/17.
@@ -14,9 +15,10 @@ public class InscriptionForm {
 
     /* Des constantes */
     private static final String CHAMP_EMAIL = "email";
-    private static final String CHAMP_PASS = "password";
+    private static final String CHAMP_PASS = "motdepasse";
     private static final String CHAMP_CONF = "confirmation";
     private static final String CHAMP_NOM = "name";
+    private static final String GLOBAL_ERROR = "existe";
 
     private String resultat;
     private Map<String, String> erreurs = new HashMap<>();
@@ -55,11 +57,22 @@ public class InscriptionForm {
             setErreur(CHAMP_NOM, e.getMessage());
         }
         utilisateur.setName(name);
+            System.out.println(this.erreurs);
 
         if (erreurs.isEmpty()) {
-            resultat = "Succès de l'inscription.";
+            System.out.println("coucou");
+        HttpSession session = request.getSession();
             UtilisateurDAO methode = new UtilisateurDAO();
-            methode.create(new Utilisateur(0, email, password, name));
+            if (methode.getFromEmail(email) != null){
+                session.invalidate();
+                setErreur(GLOBAL_ERROR, "l'utilisateur existe déja");
+            }else{
+                methode.create(utilisateur);
+                /* Récupération de la session depuis la requête */
+                
+                session.setAttribute("user", utilisateur);
+            }
+            
 
         } else {
             resultat = "Échec de l'inscription.";

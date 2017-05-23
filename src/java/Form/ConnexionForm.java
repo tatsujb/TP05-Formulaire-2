@@ -1,10 +1,12 @@
 package Form;
 
 import Bean.Utilisateur;
+import DAO.UtilisateurDAO;
 
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Valodia Tsacanias <https://github.com/valoTs> on 22/05/17.
@@ -15,6 +17,7 @@ public class ConnexionForm {
     private static final String CHAMP_PASS = "password";
     private String resultat;
     private Map<String, String> erreurs = new HashMap<>();
+    public String message;
 
     public String getResultat() {
         return resultat;
@@ -50,11 +53,23 @@ public class ConnexionForm {
 
         // Initialisation du résultat global de la validation.
         if (erreurs.isEmpty()) {
-            resultat = "Succès de la connexion.";
+            
+        HttpSession session = request.getSession();
+        
+        UtilisateurDAO user = new UtilisateurDAO();
+            user.verifUtilisateur(email, password);
+            if (user.getFromEmail(email) != null) {
+                resultat = "Succès de la connexion.";
+
+            } else {
+                resultat = " echec de la connexion,mot de passe ou email invalide";
+                session.setAttribute("user", utilisateur);
+            }
         } else {
             resultat = "Échec de la connexion.";
         }
         return utilisateur;
+
     }
 
     //Valide l'adresse email saisie.
@@ -64,6 +79,7 @@ public class ConnexionForm {
         } else if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
             throw new Exception("Merci de saisir une adresse mail valide.");
         }
+
     }
 
     // Valide le mot de passe saisi.

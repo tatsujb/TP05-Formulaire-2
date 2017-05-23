@@ -1,12 +1,12 @@
 package DAO;
 
 import Bean.Utilisateur;
-import DAO.DAO;
 import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 public class UtilisateurDAO extends DAO<Utilisateur> {
 
     private final String TABLE = "inscrits";
+    public String message;
 
     @Override
 
@@ -103,5 +104,68 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
         } catch (SQLException ex) {
             Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Utilisateur getFromEmail(String email) {
+        Utilisateur users = null;
+        try {
+            System.out.println(email);
+            System.out.println(this.connection);
+            String req = "SELECT * FROM " + TABLE + " WHERE email='"+email+"'";
+            Statement stmt = this.connection.createStatement();
+            System.out.println("requete : "+req);
+
+            ResultSet result = stmt.executeQuery(req);
+            
+         
+            while (result.next()) {
+                Utilisateur utilisateur = new Utilisateur(
+                        result.getInt("id"),
+                        result.getString("email"),
+                        result.getString("password"),
+                        result.getString("name")
+                );
+                users = utilisateur;
+
+            }
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //System.out.println("nombre rtourné " +  users.size());
+        return users;
+    }
+    
+    public Utilisateur verifUtilisateur(String email, String passwd){
+        Utilisateur users = null;
+        try {
+            System.out.println(email);
+            System.out.println(this.connection);
+            String req = "SELECT * FROM " + TABLE + " WHERE email='"+email+"' AND password='"+passwd+"'";
+            Statement stmt = this.connection.createStatement();
+            System.out.println("requete : "+req);
+
+            ResultSet result = stmt.executeQuery(req);
+            
+         
+            while (result.next()) {
+                Utilisateur utilisateur = new Utilisateur(
+                        result.getInt("id"),
+                        result.getString("email"),
+                        result.getString("password"),
+                        result.getString("name")
+                );
+                users = utilisateur;
+
+            }
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UtilisateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //System.out.println("nombre rtourné " +  users.size());
+        return users;
+        
     }
 }
