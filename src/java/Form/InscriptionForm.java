@@ -54,7 +54,7 @@ public class InscriptionForm {
         } catch (Exception e) {
             setErreur(CHAMP_NOM, e.getMessage());
         }
-        utilisateur.setNom(nom);
+        utilisateur.setName(nom);
 
         if (erreurs.isEmpty()) {
             resultat = "Succès de l'inscription.";
