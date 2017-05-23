@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class UtilisateurDAO extends DAO<Utilisateur> {
 
-    private final String TABLE = "";
+    private final String TABLE = "inscrits";
 
 
     @Override
